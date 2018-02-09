@@ -30,7 +30,7 @@ abstract class BaseFragment<VH : BaseViewHolder, P : BaseFragmentPresenter<*, *,
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        presenter.androidAdapter.saveInstanceState(savedInstanceState)
+        presenter.androidAdapter.restoreInstanceState(savedInstanceState)
         setStyle(fragmentModel.style, R.style.AppDialogNoTitle)
         isCancelable = fragmentModel.isCancelable
     }

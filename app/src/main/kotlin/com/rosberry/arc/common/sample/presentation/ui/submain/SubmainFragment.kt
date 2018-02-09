@@ -11,7 +11,6 @@ import com.rosberry.arc.common.sample.presentation.App
  */
 class SubmainFragment : BaseFragment<SubmainFragmentViewHolder, SubmainFragmentPresenter>(), SubmainView {
 
-
     companion object {
         val TAG = SubmainView.TAG
 
@@ -21,7 +20,6 @@ class SubmainFragment : BaseFragment<SubmainFragmentViewHolder, SubmainFragmentP
     }
 
     init {
-
         fragmentModel.layoutId = R.layout.f_submain
     }
 
