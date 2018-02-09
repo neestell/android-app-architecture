@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">AndroidCommon</string>
+    <string name="network_error">Network error</string>
+    <string name="no_internet_connection">No internet connection</string>
+    <string name="app_title">App title</string>
+    <string name="application_closed">Application is closed</string>
+    <string name="view_created">View has been created</string>
+    <string name="access_camera_declined">Access camera declined</string>
+    <string name="help_yoursel">Help yourself</string>
+</resources>

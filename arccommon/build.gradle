@@ -1,0 +1,82 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdkVersion rootProject.ext.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 23
+        versionName "1.0.0"
+
+    }
+    sourceSets {
+        main.java.srcDirs += ['src/main/kotlin']
+    }
+
+
+    packagingOptions {
+        pickFirst 'META-INF/rxjava.properties'
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    def deps = rootProject.ext.dependencies
+    def testDeps = rootProject.ext.testDependencies
+
+    androidTestImplementation testDeps.espresso
+
+    api fileTree(dir: 'libs', include: ['*.jar'])
+
+    //Android Support
+    api deps.supportMultidex
+    api deps.supportAppCompat
+    api deps.supportRecyclerView
+    api deps.supportCardView
+    api deps.supportDesign
+    api deps.supportMultidex
+
+    //kotlin
+    api deps.kotlin
+    api deps.ankoCommons
+    api deps.ankoCoroutines
+
+    //rest
+    api deps.retrofit
+    api deps.retrofitRxJavaAdapter
+    api deps.retrofitGsonConverter
+    api deps.okHttpLoggingInterceptor
+    api deps.okHttp
+    api deps.googleGson
+
+    //rx
+    api deps.rxAndroid
+    api deps.rxJava
+    api deps.rxPermissions
+    api deps.rxKotlin
+
+    //inject
+    api deps.dagger
+    kapt deps.daggerCompiler
+    kapt deps.daggerAnnotation
+
+    //data
+    api deps.androidState
+    kapt deps.androidStateCompiler
+
+    //ui
+    api(deps.materialDialogs) { transitive = true }
+
+    //media
+    api deps.mediaPicker
+
+}

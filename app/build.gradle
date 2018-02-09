@@ -1,0 +1,143 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdkVersion rootProject.ext.compileSdkVersion
+
+    defaultConfig {
+        applicationId "com.rosberry.arc.common.sample"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        externalNativeBuild {
+            cmake {
+                cppFlags "-frtti -fexceptions"
+            }
+        }
+    }
+
+    externalNativeBuild {
+        cmake {
+            path "CMakeLists.txt"
+        }
+    }
+
+    signingConfigs {
+        release {
+            storeFile file("../signing.jks")
+            storePassword "signing"
+            keyAlias "signing"
+            keyPassword "signing"
+        }
+    }
+
+    buildTypes {
+        //upload distribution: ./gradlew assembleFabric crashlyticsUploadDistributionFabricDebug
+        debug {
+            resValue 'string', 'facebook_app_id', '"1286841551451040"'
+
+            minifyEnabled false
+            debuggable true
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            ext.betaDistributionReleaseNotes = "Tru la la"
+            ext.betaDistributionGroupAliases = "Rosberry-testers"
+            signingConfig signingConfigs.release
+        }
+        release {
+            resValue 'string', 'facebook_app_id', '"1286841551451040"'
+
+            ext.betaDistributionReleaseNotes = "Tru lala"
+            ext.betaDistributionGroupAliases = "Rosberry-testers"
+            signingConfig signingConfigs.release
+
+            postprocessing {
+                removeUnusedCode true
+                removeUnusedResources true
+                obfuscate true
+                optimizeCode true
+                proguardFile 'proguard-rules.pro'
+            }
+        }
+    }
+
+    flavorDimensions "minApi"
+
+    productFlavors {
+
+        demo {
+            dimension "minApi"
+
+            minSdkVersion 19
+            resValue 'string', 'api_url', '"https://api_url"'
+            resValue 'string', 'common_value', '"52r5qqq8l"'
+
+        }
+
+        prod {
+            dimension "minApi"
+
+            minSdkVersion 19
+            resValue 'string', 'api_url', '"https://api_url"'
+            resValue 'string', 'common_value', '"52r5qqq8l"'
+
+        }
+
+    }
+
+    sourceSets {
+        main.java.srcDirs += ['src/main/kotlin']
+
+    }
+
+    aaptOptions {
+        setCruncherEnabled(false)
+    }
+
+    dexOptions {
+        jumboMode = false
+        javaMaxHeapSize "2048M"
+
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        quiet true
+        enable "MissingPermission"
+        abortOnError false
+    }
+
+
+    packagingOptions {
+        pickFirst 'META-INF/rxjava.properties'
+    }
+
+    configurations.all {
+      //  resolutionStrategy.force rootProject.ext.testDependencies.annotations
+
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    def deps = rootProject.ext.dependencies
+    def testDeps = rootProject.ext.testDependencies
+
+    //inject
+    kapt deps.daggerCompiler //required
+
+    implementation project(':arccommon')
+
+}
+
