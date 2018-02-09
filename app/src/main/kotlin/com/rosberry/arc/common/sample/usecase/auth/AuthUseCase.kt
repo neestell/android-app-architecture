@@ -10,7 +10,7 @@ import javax.inject.Inject
 /**
  * Created by Evgeniy Nagibin on 08/11/2017.
  */
-class AuthUseCase /*@Inject */constructor(storage: InternalStorage,
+class AuthUseCase @Inject constructor(storage: InternalStorage,
                                       repository: AuthorizationRepository) :
         CommonUseCase<AuthorizationRepository>(storage, repository) {
 

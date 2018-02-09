@@ -7,6 +7,7 @@ import com.rosberry.arc.common.repository.persistence.prefs.InternalStorage
 import com.rosberry.arc.common.sample.R
 import com.rosberry.arc.common.injection.scope.PerActivity
 import com.rosberry.arc.common.sample.repository.jni.JNIAdapter
+import com.rosberry.arc.common.sample.usecase.auth.AuthUseCase
 import javax.inject.Inject
 
 /**
@@ -15,7 +16,7 @@ import javax.inject.Inject
 
 @PerActivity
 class MainInteractor
-@Inject constructor(storage: InternalStorage) :
+@Inject constructor(storage: InternalStorage, authUseCase: AuthUseCase) :
         BaseInteractor<MainPresenter, MainViewData>(storage) {
 
 

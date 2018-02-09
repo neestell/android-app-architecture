@@ -57,7 +57,7 @@ class NetModule {
     @Singleton
     fun providesRetrofit(context: Context, httpClient: OkHttpClient, gson: Gson): Retrofit {
         return Retrofit.Builder()
-                .baseUrl(context.getString(R.string.error_no_mediapicker_params_specified))
+                .baseUrl("http://www.yandex.ru")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
 
@@ -70,7 +70,7 @@ class NetModule {
     @Named("Authorized")
     fun providesAuthRetrofit(context: Context, httpClient: OkHttpClient, gson: Gson): Retrofit {
         return Retrofit.Builder()
-                .baseUrl(context.getString(R.string.error_no_mediapicker_params_specified))
+                .baseUrl("http://www.yandex.ru")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(httpClient)
