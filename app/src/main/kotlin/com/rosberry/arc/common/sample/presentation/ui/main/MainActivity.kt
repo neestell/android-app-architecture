@@ -13,6 +13,8 @@ import kotlinx.android.synthetic.main.a_main.*
 
 class MainActivity : BaseActivity<MainActivityViewHolder, MainActivityPresenter>(), MainView {
 
+    /*--Start init view specific methods and fields--*/
+
     private val awesomeAdapter = AwesomeAdapter()
 
     init {
@@ -27,6 +29,7 @@ class MainActivity : BaseActivity<MainActivityViewHolder, MainActivityPresenter>
     override fun getViewTag(): String {
         return MainView.TAG
     }
+    /*--End init view specific methods and fields--*/
 
     /*--Start user interaction events--*/
 
@@ -57,6 +60,7 @@ class MainActivity : BaseActivity<MainActivityViewHolder, MainActivityPresenter>
         super.onCreate(savedInstanceState)
         viewHolder = MainActivityViewHolder(this)
         presenter.onCreate(this)
+
         recyclerAwesome.setHasFixedSize(true)
         recyclerAwesome.adapter = awesomeAdapter;
 

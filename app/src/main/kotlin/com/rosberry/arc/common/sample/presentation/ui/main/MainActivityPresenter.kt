@@ -14,10 +14,11 @@ import javax.inject.Inject
 @PerActivity
 class MainActivityPresenter
 @Inject constructor(viewData: MainViewData, mainRouter: MainRouter,
-                    val mainInteractor: MainInteractor,
+                    val mainInteractor: MainInteractor, //Interactors add to end of the injection
                     val pleasureInteractor: PleasureInteractor
                     )
     : BasePresenter<MainView, MainViewData, MainRouter>(viewData, mainRouter), MainPresenter, BasePresenter.Host {
+    /*--Start interaction methods. Named starting from physical actionsaction(click, press, selected etc)--*/
 
     fun clickHardBack() {
         router.finish(getView())
@@ -42,6 +43,9 @@ class MainActivityPresenter
         }
 
     }
+    /*--End interaction methods. Named starting from physical actionsaction(click, press, selected etc)--*/
+
+    /*--Start lifecycle actions--*/
 
     override fun onCreate(view: MainView) {
         super.onCreate(view)
@@ -58,14 +62,29 @@ class MainActivityPresenter
 
     }
 
+    /*--end lifecycle actions--*/
+
+    /*--Start public events actions starting from on prefix--*/
+
+    override fun onMainViewCreated(str: String) {
+        router.showTemporary(str);
+    }
+
+    /*--End public events actions starting  with ON prefix--*/
+
+    /*--Start view data change methods and its visibility starting from verb change, --*/
+
     override fun changeCenterText(str: String) {
-        v?.setCenterText(str)
+        v?.setCenterText(str) // this methods may contain a list of setters for view
     }
 
     override fun changeCenterTextVisibility(visible: Boolean) {
         v?.setCenterTextVisible(visible)
     }
+    /*--End view data change methods and its visibility starting from verb change, --*/
 
+
+    /*--Start methods to show dialog, toasts, activities --*/
 
     override fun showViewCreated(msg: String) {
         router.toastNavigator
@@ -74,12 +93,11 @@ class MainActivityPresenter
                         .build())
     }
 
-    override fun onMainViewCreated(str: String) {
-        router.showTemporary(str);
-    }
 
     override fun message(it: DialogModel) {
         router.toastNavigator.show(it)
     }
+    /*--End methods to show dialog, toasts, activities --*/
+
 
 }
