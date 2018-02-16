@@ -13,7 +13,10 @@ import javax.inject.Inject
  */
 @PerActivity
 class MainActivityPresenter
-@Inject constructor(viewData: MainViewData, mainRouter: MainRouter, val mainInteractor: MainInteractor)
+@Inject constructor(viewData: MainViewData, mainRouter: MainRouter,
+                    val mainInteractor: MainInteractor,
+                    val pleasureInteractor: PleasureInteractor
+                    )
     : BasePresenter<MainView, MainViewData, MainRouter>(viewData, mainRouter), MainPresenter, BasePresenter.Host {
 
     fun clickHardBack() {
@@ -43,6 +46,7 @@ class MainActivityPresenter
     override fun onCreate(view: MainView) {
         super.onCreate(view)
         mainInteractor.onCreate(this, viewData)
+        pleasureInteractor.onCreate(this, viewData)
         mainInteractor.showCamera();
     }
 
@@ -56,6 +60,10 @@ class MainActivityPresenter
 
     override fun changeCenterText(str: String) {
         v?.setCenterText(str)
+    }
+
+    override fun changeCenterTextVisibility(visible: Boolean) {
+        v?.setCenterTextVisible(visible)
     }
 
 

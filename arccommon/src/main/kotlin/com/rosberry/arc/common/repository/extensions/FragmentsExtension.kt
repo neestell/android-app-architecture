@@ -26,7 +26,7 @@ fun Fragment.showFragment(fm: FragmentManager, frameId: Int, stack: Boolean = fa
 
 private fun setAnimation(anim: IntArray?, transaction: FragmentTransaction) {
     var animation = anim
-    if (animation != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+    if (animation != null) {
         if (animation.isEmpty()) {
             animation = intArrayOf(android.R.anim.fade_in, android.R.anim.fade_out,
                     android.R.anim.slide_in_left, android.R.anim.slide_out_right)

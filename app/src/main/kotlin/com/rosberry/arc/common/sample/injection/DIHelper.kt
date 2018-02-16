@@ -14,12 +14,16 @@ import com.rosberry.arc.common.sample.presentation.App
  * Created by dmitry on 25.12.2017.
  */
 class DIHelper {
-    lateinit var appComponent: ApplicationComponent
+    private lateinit var appComponent: ApplicationComponent
+    private lateinit var useCaseComponent: UseCaseComponent
 
     fun getUseCaseComponent(): UseCaseComponent {
-        return DaggerUseCaseComponent.builder()
-                .applicationComponent(appComponent)
-                .build()
+        if (!::useCaseComponent.isInitialized){
+            useCaseComponent = DaggerUseCaseComponent.builder()
+                    .applicationComponent(appComponent)
+                    .build()
+        }
+        return useCaseComponent
     }
 
     fun initApplicationComponent(app: App) {

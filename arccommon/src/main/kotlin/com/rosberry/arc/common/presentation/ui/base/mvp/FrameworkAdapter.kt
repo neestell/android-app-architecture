@@ -11,9 +11,19 @@ import javax.inject.Inject
  * Created by dmitry on 25.12.2017.
  */
 class FrameworkAdapter<out D: ViewDataRepository> @Inject constructor(val viewData: D) {
+
+    companion object {
+        const val ARGS = "args"
+    }
+
+    interface OnActivityResult {
+        fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
+    }
+    private var intent: Intent? = null
+    private var bundle: Bundle? = null
+
     private val activityResultCallbacks: HashSet<OnActivityResult> = HashSet()
     lateinit var fragmentManager:FragmentManager
-    private var handler = Handler()
 
     fun saveInstanceState(bundle: Bundle?) {
         viewData.saveInstanceState(bundle)
@@ -37,11 +47,17 @@ class FrameworkAdapter<out D: ViewDataRepository> @Inject constructor(val viewDa
         }
     }
 
-    interface OnActivityResult {
-        fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
-    }
-
     fun attachFragmentManager(supportFragmentManager: FragmentManager?) {
         fragmentManager = supportFragmentManager!!;
     }
+
+    fun setIntentAndBundle(intent: Intent?, bundle: Bundle?) {
+        this.intent = intent
+        this.bundle = bundle
+
+    }
+
+    fun getIntent() = intent
+
+    fun getBundle() = bundle
 }

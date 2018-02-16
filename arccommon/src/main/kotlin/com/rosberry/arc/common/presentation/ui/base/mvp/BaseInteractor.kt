@@ -47,5 +47,7 @@ abstract class BaseInteractor<P : IBasePresenter<D>, D : ViewDataRepository>(val
         }
     }
 
+    fun calculateMultiplecation(param1: Int, param2: Int) = param1 * param2
+
 
 }

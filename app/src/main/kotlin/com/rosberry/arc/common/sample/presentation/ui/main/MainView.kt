@@ -13,5 +13,6 @@ interface MainView : BaseView, BaseView.Host {
     }
 
     fun setCenterText(string: String)
+    fun setCenterTextVisible(visible: Boolean)
 
 }

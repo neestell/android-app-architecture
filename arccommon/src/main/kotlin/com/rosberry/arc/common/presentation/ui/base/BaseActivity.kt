@@ -2,10 +2,8 @@ package com.rosberry.arc.common.presentation.ui.base
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.content.res.AppCompatResources
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
@@ -52,7 +50,7 @@ abstract class BaseActivity<VH : BaseViewHolder, V : BasePresenter<*, *, *>> : A
         super.onCreate(savedInstanceState)
         presenter.androidAdapter.restoreInstanceState(savedInstanceState)
         presenter.androidAdapter.attachFragmentManager(supportFragmentManager);
-
+        presenter.androidAdapter.setIntentAndBundle(intent, intent.extras)
         setContentView(activityModel.layoutId)
         activityModel.setActivity(this)
 
@@ -90,6 +88,8 @@ abstract class BaseActivity<VH : BaseViewHolder, V : BasePresenter<*, *, *>> : A
     public override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         setIntent(intent)
+        presenter.androidAdapter.setIntentAndBundle(intent, intent.extras)
+
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -196,11 +196,13 @@ abstract class BaseActivity<VH : BaseViewHolder, V : BasePresenter<*, *, *>> : A
         return if (this is BaseView.Host) this else null
     }
 
+    override fun getRootView(): BaseView? {
+        val baseView = this as BaseView
+        return baseView
+    }
+
     override fun getViewTag() = javaClass.name
 
     override fun exists(): Boolean = viewHolder.exists()
-
-    override fun getArguments(): Bundle = intent.extras
-
 
 }

@@ -22,9 +22,15 @@ class MainInteractor
 
     override fun onCreate(presenter: MainPresenter, viewData: MainViewData) {
         super.onCreate(presenter, viewData)
+        parseBundle()
         presenter.showViewCreated(viewData.getString(R.string.view_created));
         presenter.onMainViewCreated("Model or primitive types")
+        presenter.getFrameworkAdapter()
 
+    }
+
+    private fun parseBundle() {
+        val boolka = presenter.getFrameworkAdapter().getIntent()?.getBooleanExtra("boolka", false)
     }
 
     fun showCamera() {

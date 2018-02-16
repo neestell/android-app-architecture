@@ -10,19 +10,16 @@ import android.os.Bundle
 
 interface BaseView {
 
-    fun getIntent(): Intent
-    fun getResources(): Resources
-    fun getArguments(): Bundle?
-
     fun exists(): Boolean
 
     fun getViewTag(): String
 
     fun getParentView(): Host?
 
+    fun getRootView(): BaseView?
+
     interface Host {
         fun addChildPresenter(viewTag: String, presenter: BaseFragmentPresenter<*, *, *>)
         fun removeChildPresenter(viewTag: String, presenter: BaseFragmentPresenter<*, *, *>)
-
     }
 }

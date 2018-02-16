@@ -9,7 +9,6 @@ import android.view.*
 import com.rosberry.arc.common.R
 
 import com.rosberry.arc.common.presentation.ui.base.model.DialogFragmentModel
-import com.rosberry.arc.common.presentation.ui.base.model.DialogModel
 import com.rosberry.arc.common.presentation.ui.base.mvp.BaseFragmentPresenter
 import com.rosberry.arc.common.presentation.ui.base.mvp.BaseView
 import com.rosberry.arc.common.repository.log.LogUtil
@@ -26,11 +25,14 @@ abstract class BaseFragment<VH : BaseViewHolder, P : BaseFragmentPresenter<*, *,
     protected var stateSaved: Boolean = false
     protected var fragmentModel = DialogFragmentModel()
 
-    @Inject lateinit var presenter: P
+    @Inject
+    lateinit var presenter: P
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         presenter.androidAdapter.restoreInstanceState(savedInstanceState)
+        presenter.androidAdapter.attachFragmentManager(childFragmentManager)
+        presenter.androidAdapter.setIntentAndBundle(activity?.intent, arguments)
         setStyle(fragmentModel.style, R.style.AppDialogNoTitle)
         isCancelable = fragmentModel.isCancelable
     }
@@ -138,11 +140,6 @@ abstract class BaseFragment<VH : BaseViewHolder, P : BaseFragmentPresenter<*, *,
     val supportActionBar: ActionBar
         get() = (activity as BaseActivity<*, *>).supportActionBar as ActionBar
 
-
-    override fun getIntent(): Intent {
-        return activity?.intent?: Intent("empty")
-    }
-
     fun addChildPresenter(viewTag: String, presenter: BaseFragmentPresenter<*, *, *>) {
         this.presenter.addChildPresenter(viewTag, presenter)
     }
@@ -156,6 +153,11 @@ abstract class BaseFragment<VH : BaseViewHolder, P : BaseFragmentPresenter<*, *,
     override fun getParentView(): BaseView.Host? {
         val baseView = if (parentFragment == null) activity as BaseView else parentFragment as BaseView
         return if (baseView is BaseView.Host) baseView else null
+    }
+
+    override fun getRootView(): BaseView? {
+        val baseView = activity as BaseView
+        return baseView
     }
 
 }
