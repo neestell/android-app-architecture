@@ -28,5 +28,9 @@ class MainRouter
         removeFragment(androidAdapter.fragmentManager, SubmainView.TAG)
     }
 
+    fun showDebug() {
+        fragmentNavigator.showDebug(androidAdapter.fragmentManager)
+    }
+
 
 }

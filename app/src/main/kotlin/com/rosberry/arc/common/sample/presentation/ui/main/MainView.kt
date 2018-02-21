@@ -13,9 +13,12 @@ interface MainView : BaseView, BaseView.Host {
     companion object {
         val TAG = "mainview"
     }
-
+    /*Data setters*/
     fun setCenterText(string: String)
     fun setCenterTextVisible(visible: Boolean)
 
+    /*Observables*/
     fun getTakeShotObservable(): Observable<Any>
+    fun getTakeShotDebugObservable(): Observable<Any>
+
 }

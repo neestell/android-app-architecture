@@ -1,6 +1,7 @@
 package com.rosberry.arc.common.sample.injection.component
 
 import com.rosberry.arc.common.injection.scope.PerActivity
+import com.rosberry.arc.common.sample.presentation.ui.debug.DebugFragment
 import com.rosberry.arc.common.sample.presentation.ui.main.MainActivity
 import com.rosberry.arc.common.sample.presentation.ui.submain.SubmainFragment
 
@@ -16,5 +17,6 @@ import dagger.Component
 interface UseCaseComponent {
     fun inject(mainActivity: MainActivity)
     fun inject(fragment: SubmainFragment)
+    fun inject(fragment: DebugFragment)
 
 }

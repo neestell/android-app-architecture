@@ -3,11 +3,10 @@ package com.rosberry.arc.common.sample.presentation.navigation
 import android.os.Bundle
 import android.support.v4.app.FragmentManager
 import com.rosberry.arc.common.repository.extensions.getByTag
-import com.rosberry.arc.common.repository.extensions.removeFragmentByTag
 import com.rosberry.arc.common.repository.extensions.showFragment
 import com.rosberry.arc.common.sample.R
+import com.rosberry.arc.common.sample.presentation.ui.debug.DebugFragment
 import com.rosberry.arc.common.sample.presentation.ui.submain.SubmainFragment
-import kotlinx.android.synthetic.main.a_main.view.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -22,6 +21,10 @@ class FragmentNavigator @Inject constructor() {
         fm.getByTag(SubmainFragment.TAG)
                 ?: SubmainFragment.newInstance(bundle)
                         .showFragment(fm, R.id.content_view, false, SubmainFragment.TAG, defaultAnim)
+    }
+
+    fun showDebug(fm: FragmentManager) {
+        DebugFragment.newInstance().show(fm, DebugFragment.TAG)
     }
 
 }

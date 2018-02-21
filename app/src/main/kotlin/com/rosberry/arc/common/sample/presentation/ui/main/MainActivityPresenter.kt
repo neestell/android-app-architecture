@@ -53,6 +53,10 @@ class MainActivityPresenter
 
     }
 
+    fun clickDebug(){
+        router.showDebug()
+    }
+
     /*--End interaction methods. Named starting from physical actionsaction(click, press, selected etc)--*/
 
     /*--Start lifecycle actions--*/
@@ -63,6 +67,7 @@ class MainActivityPresenter
         pleasureInteractor.onCreate(this, viewData)
         mainInteractor.showCamera();
         subscribeWidget(v?.getTakeShotObservable(), ::clickTakeShot, true)
+        subscribeWidget(v?.getTakeShotDebugObservable(), ::clickDebug)
     }
 
     override fun onResume() {

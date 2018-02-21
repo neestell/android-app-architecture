@@ -48,6 +48,10 @@ class MainActivity : BaseActivity<MainActivityViewHolder, MainActivityPresenter>
         return RxView.clicks(buttonShot)
     }
 
+    override fun getTakeShotDebugObservable(): Observable<Any> {
+        return RxView.longClicks(buttonShot)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.op_help -> presenter.clickOptionHelp()
