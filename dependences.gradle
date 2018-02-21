@@ -68,6 +68,8 @@ ext {
 
     ln_version = "1.1.1"
 
+    rxBinding_version = "2.1.1"
+
     testDependencies = [
             jUnit      : "junit:junit:$junit_version",
             espresso   : "com.android.support.test.espresso:espresso-core:$espresso_version",
@@ -114,6 +116,7 @@ ext {
             rxJava                  : "io.reactivex.rxjava2:rxjava:$rxJava_version",
             rxKotlin                : "io.reactivex.rxjava2:rxkotlin:$rxKotlin_version",
             rxPermissions           : "com.tbruyelle.rxpermissions2:rxpermissions:$rxpermission_version",
+            rxBinding               : "com.jakewharton.rxbinding2:rxbinding-kotlin:$rxBinding_version",
 
             //inject
             dagger                  : "com.google.dagger:dagger:$dagger2_version",

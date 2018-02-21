@@ -52,5 +52,9 @@ class MainInteractor
 
     }
 
+    fun fakeShot() {
+        handler.postDelayed({presenter.onShotTaken()}, 5000)
+    }
+
 
 }

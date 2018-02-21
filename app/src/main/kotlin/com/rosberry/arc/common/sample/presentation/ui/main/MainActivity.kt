@@ -2,6 +2,8 @@ package com.rosberry.arc.common.sample.presentation.ui.main
 
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
+import com.jakewharton.rxbinding2.view.RxView
 
 import com.rosberry.arc.common.presentation.ui.base.BaseActivity
 import com.rosberry.arc.common.repository.extensions.hide
@@ -9,6 +11,7 @@ import com.rosberry.arc.common.repository.extensions.show
 import com.rosberry.arc.common.sample.R
 import com.rosberry.arc.common.sample.presentation.App
 import com.rosberry.arc.common.sample.presentation.ui.main.list.AwesomeAdapter
+import io.reactivex.Observable
 import kotlinx.android.synthetic.main.a_main.*
 
 class MainActivity : BaseActivity<MainActivityViewHolder, MainActivityPresenter>(), MainView {
@@ -41,6 +44,10 @@ class MainActivity : BaseActivity<MainActivityViewHolder, MainActivityPresenter>
         presenter.clickSoftBack()
     }
 
+    override fun getTakeShotObservable(): Observable<Any> {
+        return RxView.clicks(buttonShot)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.op_help -> presenter.clickOptionHelp()
@@ -63,6 +70,7 @@ class MainActivity : BaseActivity<MainActivityViewHolder, MainActivityPresenter>
 
         recyclerAwesome.setHasFixedSize(true)
         recyclerAwesome.adapter = awesomeAdapter;
+
 
     }
     /*--End lifecycle events--*/

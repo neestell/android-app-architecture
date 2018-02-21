@@ -1,5 +1,6 @@
 package com.rosberry.arc.common.sample.presentation.ui.main
 
+import android.os.Handler
 import com.rosberry.arc.common.presentation.ui.base.model.DialogModel
 import com.rosberry.arc.common.presentation.ui.base.mvp.BasePresenter
 import com.rosberry.arc.common.sample.R
@@ -16,8 +17,8 @@ class MainActivityPresenter
 @Inject constructor(viewData: MainViewData, mainRouter: MainRouter,
                     val mainInteractor: MainInteractor, //Interactors add to end of the injection
                     val pleasureInteractor: PleasureInteractor
-                    )
-    : BasePresenter<MainView, MainViewData, MainRouter>(viewData, mainRouter), MainPresenter, BasePresenter.Host {
+) : BasePresenter<MainView, MainViewData, MainRouter>(viewData, mainRouter), MainPresenter, BasePresenter.Host {
+
     /*--Start interaction methods. Named starting from physical actionsaction(click, press, selected etc)--*/
 
     fun clickHardBack() {
@@ -38,11 +39,20 @@ class MainActivityPresenter
                     .show(DialogModel.Builder()
                             .contentId(R.string.help_yoursel)
                             .build())
-        } else{
+        } else {
             router.showTemporary("Text")
         }
 
     }
+
+    fun clickTakeShot() {
+        message(DialogModel.Builder()
+                .contentId(R.string.taking_shot)
+                .build())
+        mainInteractor.fakeShot();
+
+    }
+
     /*--End interaction methods. Named starting from physical actionsaction(click, press, selected etc)--*/
 
     /*--Start lifecycle actions--*/
@@ -52,6 +62,7 @@ class MainActivityPresenter
         mainInteractor.onCreate(this, viewData)
         pleasureInteractor.onCreate(this, viewData)
         mainInteractor.showCamera();
+        subscribeWidget(v?.getTakeShotObservable(), ::clickTakeShot, true)
     }
 
     override fun onResume() {
@@ -68,6 +79,13 @@ class MainActivityPresenter
 
     override fun onMainViewCreated(str: String) {
         router.showTemporary(str);
+    }
+
+    override fun onShotTaken() {
+        subscribeWidget(v?.getTakeShotObservable(), ::clickTakeShot, true)
+        message(DialogModel.Builder()
+                .contentId(R.string.shot_has_been_taken)
+                .build())
     }
 
     /*--End public events actions starting  with ON prefix--*/

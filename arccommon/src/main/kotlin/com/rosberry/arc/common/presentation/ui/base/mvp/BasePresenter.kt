@@ -1,12 +1,12 @@
 package com.rosberry.arc.common.presentation.ui.base.mvp
 
-import com.rosberry.arc.common.presentation.ui.base.BaseActivity
-import com.rosberry.arc.common.repository.Callback
 import com.rosberry.arc.common.repository.log.LogUtil
 import com.rosberry.arc.common.repository.persistence.internal.ViewDataRepository
-import com.tbruyelle.rxpermissions2.RxPermissions
+import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 import java.util.*
+import kotlin.reflect.KFunction0
 
 /**
  * Created by neestell on 9/28/16.
@@ -16,8 +16,9 @@ abstract class BasePresenter<VI:BaseView,  D: ViewDataRepository, RO: BaseRouter
     val androidAdapter: FrameworkAdapter<D> = FrameworkAdapter(viewData)
     var v: VI? = null
 
-    var subscriptions = CompositeDisposable()
+    var subsDisposable = CompositeDisposable()
         protected set
+    var subsDisposableMap = HashMap<String, Disposable>()
 
     fun getFrameworkAdapter() = androidAdapter
 
@@ -38,8 +39,9 @@ abstract class BasePresenter<VI:BaseView,  D: ViewDataRepository, RO: BaseRouter
         v = null
         childPresenters.clear()
 
-        if (!subscriptions.isDisposed)
-            subscriptions.dispose()
+        if (!subsDisposable.isDisposed)
+            subsDisposable.dispose()
+
     }
 
     fun getView() = v
@@ -73,6 +75,27 @@ abstract class BasePresenter<VI:BaseView,  D: ViewDataRepository, RO: BaseRouter
 
         return childPresenters.size
     }
+
+    fun unsubscribeWidget(function: KFunction0<Unit>) {
+
+        val disposable = subsDisposableMap.get(function.name)
+        if (disposable != null) {
+            subsDisposable.remove(disposable)
+            subsDisposableMap.remove(function.name)
+        }
+    }
+
+    fun subscribeWidget(o: Observable<Any>?, function: KFunction0<Unit>, autoUnsubscribe: Boolean = false) {
+
+        if (o != null && !subsDisposableMap.containsKey(function.name)) {
+            val disposable = o.subscribe({
+                if (autoUnsubscribe) unsubscribeWidget(function)
+                function.invoke()
+            })
+            if (subsDisposable.add(disposable)) subsDisposableMap.put(function.name, disposable)
+        }
+    }
+
 
     interface Host {
 

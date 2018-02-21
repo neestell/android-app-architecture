@@ -37,6 +37,17 @@
         android:textStyle="normal"
         />
 
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/buttonShot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textHello"
+        android:layout_centerHorizontal="true"
+        android:text="Take a shot!"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:textColor="@color/black"
+        />
+
     <FrameLayout
         android:id="@+id/content_view"
         android:layout_width="match_parent"

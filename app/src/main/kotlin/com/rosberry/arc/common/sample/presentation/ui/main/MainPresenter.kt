@@ -12,4 +12,5 @@ interface MainPresenter : IBasePresenter<MainViewData> {
     fun message(it: DialogModel)
     fun changeCenterText(str: String)
     fun changeCenterTextVisibility(visible: Boolean)
+    fun onShotTaken()
 }

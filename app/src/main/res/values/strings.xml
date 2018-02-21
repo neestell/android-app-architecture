@@ -7,4 +7,6 @@
     <string name="view_created">View has been created</string>
     <string name="access_camera_declined">Access camera declined</string>
     <string name="help_yoursel">Help yourself</string>
+    <string name="taking_shot">Please wait. taking a shot...</string>
+    <string name="shot_has_been_taken">Shot has been taken</string>
 </resources>

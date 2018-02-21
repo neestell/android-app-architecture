@@ -63,6 +63,7 @@ dependencies {
     api deps.rxJava
     api deps.rxPermissions
     api deps.rxKotlin
+    api deps.rxBinding
 
     //inject
     api deps.dagger

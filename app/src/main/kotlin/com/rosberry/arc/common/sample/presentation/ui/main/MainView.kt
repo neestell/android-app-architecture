@@ -1,6 +1,8 @@
 package com.rosberry.arc.common.sample.presentation.ui.main
 
+import android.view.View
 import com.rosberry.arc.common.presentation.ui.base.mvp.BaseView
+import io.reactivex.Observable
 
 
 /**
@@ -15,4 +17,5 @@ interface MainView : BaseView, BaseView.Host {
     fun setCenterText(string: String)
     fun setCenterTextVisible(visible: Boolean)
 
+    fun getTakeShotObservable(): Observable<Any>
 }
