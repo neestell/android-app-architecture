@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="#942"
+             android:orientation="vertical"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@color/white"
     >
     <LinearLayout
         android:id="@+id/debugContainer"
@@ -12,5 +12,15 @@
         android:orientation="vertical">
 
     </LinearLayout>
-
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/buttonApply"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_horizontal|bottom"
+        android:background="@drawable/bg_rounded_blue"
+        android:layout_height="wrap_content"
+        android:text="Apply"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:layout_marginBottom="@dimen/base_margin"
+        />
 </FrameLayout>
