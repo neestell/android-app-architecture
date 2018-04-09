@@ -41,7 +41,7 @@ class MainInteractor
 
         requestAccess(PermissionModel(Manifest.permission.CAMERA, R.string.access_camera_declined),
                 body,
-                {presenter.message(it)})
+                { presenter.message(it) })
     }
 
     fun deleteFragment() {
@@ -53,7 +53,7 @@ class MainInteractor
     }
 
     fun fakeShot() {
-        handler.postDelayed({presenter.onShotTaken()}, 5000)
+        handler.postDelayed({ presenter.onShotTaken() }, 5000)
     }
 
 
