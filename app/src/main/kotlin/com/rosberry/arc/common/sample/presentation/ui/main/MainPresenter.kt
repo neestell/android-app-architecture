@@ -6,11 +6,7 @@ import com.rosberry.arc.common.presentation.ui.base.mvp.IBasePresenter
 /**
  * Created by dmitry on 19.06.17.
  */
-interface MainPresenter : IBasePresenter<MainViewData> {
-    fun showViewCreated(msg: String)
-    fun onMainViewCreated(s: String)
+interface MainPresenter : IBasePresenter<MainViewData>, MainInteractor.CameraDataReceiver, PleasureInteractor.PleasureDataReceiver {
     fun message(it: DialogModel)
-    fun changeCenterText(str: String)
     fun changeCenterTextVisibility(visible: Boolean)
-    fun onShotTaken()
 }

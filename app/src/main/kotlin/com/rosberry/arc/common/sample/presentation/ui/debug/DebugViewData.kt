@@ -10,6 +10,6 @@ import javax.inject.Inject
  */
 
 class DebugViewData
-@Inject constructor(context: Context, storage: InternalStorage) : ViewDataRepository(context, storage) {
+@Inject constructor(context: Context, storage: InternalStorage) : ViewDataRepository(context, storage), DebugInteractor.DebugDataProvider {
 
 }

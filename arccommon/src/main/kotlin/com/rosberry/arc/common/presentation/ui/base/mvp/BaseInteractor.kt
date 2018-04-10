@@ -1,11 +1,9 @@
 package com.rosberry.arc.common.presentation.ui.base.mvp
 
-import android.app.Activity
 import android.os.Handler
 import com.rosberry.arc.common.presentation.ui.base.model.DialogModel
 import com.rosberry.arc.common.presentation.ui.base.model.PermissionModel
 import com.rosberry.arc.common.repository.Callback
-import com.rosberry.arc.common.repository.persistence.internal.ViewDataRepository
 import com.rosberry.arc.common.repository.persistence.prefs.InternalStorage
 
 
@@ -13,24 +11,24 @@ import com.rosberry.arc.common.repository.persistence.prefs.InternalStorage
  * Created by dmitry on 30.03.17.
  */
 
-abstract class BaseInteractor<P : IBasePresenter<D>, D : ViewDataRepository>(val storage: InternalStorage) {
+abstract class BaseInteractor<P : InteractorDataReceiver, D : InteractorDataProvider>(val storage: InternalStorage) {
     protected lateinit var presenter: P
-    protected lateinit var viewData: D
+    protected lateinit var dataProvider: D
     protected val handler = Handler()
     private var permissionController: PermissionController? = null;
 
     open fun onCreate(presenter: P, viewData: D) {
         this.presenter = presenter
-        this.viewData = viewData
-        if (presenter.getView() is Activity) this.permissionController = PermissionController(presenter.getView());
+        this.dataProvider = viewData
+        this.permissionController = PermissionController(presenter.getView()?.getRootView());
     }
 
     fun onComplete() {
 
     }
 
-    fun requestAccess(model: PermissionModel, accept: () -> Unit,  declined: (m: DialogModel) -> Unit) {
-        if (permissionController?.checkPermissions(model.name)?: false) {
+    fun requestAccess(model: PermissionModel, accept: () -> Unit, declined: (m: DialogModel) -> Unit) {
+        if (permissionController?.checkPermissions(model.name) ?: false) {
             accept()
         } else {
             permissionController?.requestPermissions(object : Callback<Boolean> {

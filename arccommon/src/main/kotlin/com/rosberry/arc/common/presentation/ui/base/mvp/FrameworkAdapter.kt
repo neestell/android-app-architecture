@@ -10,7 +10,7 @@ import javax.inject.Inject
 /**
  * Created by dmitry on 25.12.2017.
  */
-class FrameworkAdapter<out D: ViewDataRepository> @Inject constructor(val viewData: D) {
+class FrameworkAdapter @Inject constructor(val viewData: ViewDataRepository) {
 
     companion object {
         const val ARGS = "args"
@@ -19,11 +19,12 @@ class FrameworkAdapter<out D: ViewDataRepository> @Inject constructor(val viewDa
     interface OnActivityResult {
         fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
     }
+
     private var intent: Intent? = null
     private var bundle: Bundle? = null
 
     private val activityResultCallbacks: HashSet<OnActivityResult> = HashSet()
-    lateinit var fragmentManager:FragmentManager
+    lateinit var fragmentManager: FragmentManager
 
     fun saveInstanceState(bundle: Bundle?) {
         viewData.saveInstanceState(bundle)
@@ -33,16 +34,16 @@ class FrameworkAdapter<out D: ViewDataRepository> @Inject constructor(val viewDa
         viewData.restoreInstanceState(bundle)
     }
 
-    fun addActivityResultListener(listener: OnActivityResult){
+    fun addActivityResultListener(listener: OnActivityResult) {
         activityResultCallbacks.add(listener)
     }
 
-    fun removeActivityResultListener(listener: OnActivityResult){
+    fun removeActivityResultListener(listener: OnActivityResult) {
         activityResultCallbacks.remove(listener)
     }
 
     fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        for (item in activityResultCallbacks){
+        for (item in activityResultCallbacks) {
             item.onActivityResult(requestCode, resultCode, data)
         }
     }

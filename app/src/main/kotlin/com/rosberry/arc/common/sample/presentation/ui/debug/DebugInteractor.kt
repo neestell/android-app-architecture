@@ -4,6 +4,8 @@ package com.rosberry.arc.common.sample.presentation.ui.debug
 import com.rosberry.arc.common.presentation.ui.base.mvp.BaseInteractor
 import com.rosberry.arc.common.repository.persistence.prefs.InternalStorage
 import com.rosberry.arc.common.injection.scope.PerActivity
+import com.rosberry.arc.common.presentation.ui.base.mvp.InteractorDataProvider
+import com.rosberry.arc.common.presentation.ui.base.mvp.InteractorDataReceiver
 import javax.inject.Inject
 
 /**
@@ -13,9 +15,18 @@ import javax.inject.Inject
 @PerActivity
 class DebugInteractor
 @Inject constructor(internalStorage: InternalStorage) :
-        BaseInteractor<DebugPresenter, DebugViewData>(internalStorage) {
+        BaseInteractor<DebugInteractor.DebugDataReceiver, DebugInteractor.DebugDataProvider>(internalStorage) {
 
-    override fun onCreate(presenter: DebugPresenter, viewData: DebugViewData) {
+    interface DebugDataProvider: InteractorDataProvider {
+
+    }
+
+    interface DebugDataReceiver: InteractorDataReceiver {
+
+    }
+
+    override fun onCreate(presenter: DebugDataReceiver, viewData: DebugDataProvider) {
         super.onCreate(presenter, viewData)
+        presenter.getView()
     }
 }

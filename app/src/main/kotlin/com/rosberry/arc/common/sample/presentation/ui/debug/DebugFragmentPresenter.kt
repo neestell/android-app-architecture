@@ -10,7 +10,7 @@ import javax.inject.Inject
 @PerActivity
 class DebugFragmentPresenter
 @Inject constructor(viewData: DebugViewData, private val debugInteractor: DebugInteractor, router: DebugMainRouter) :
-        BaseFragmentPresenter<DebugView, DebugViewData, DebugMainRouter>(viewData, router), DebugPresenter {
+        BaseFragmentPresenter<DebugView, DebugViewData, DebugMainRouter>(viewData, router), DebugPresenter, DebugInteractor.DebugDataReceiver {
 
 
     override fun onCreate(view: DebugView) {

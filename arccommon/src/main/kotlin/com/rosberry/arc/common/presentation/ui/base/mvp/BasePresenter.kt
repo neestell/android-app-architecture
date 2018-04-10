@@ -13,7 +13,7 @@ import kotlin.reflect.KFunction0
  */
 abstract class BasePresenter<VI:BaseView,  D: ViewDataRepository, RO: BaseRouter>(val viewData: D, val router: RO)  {
     private val childPresenters = HashMap<String, BasePresenter<*, *, *>>()
-    val androidAdapter: FrameworkAdapter<D> = FrameworkAdapter(viewData)
+    val androidAdapter: FrameworkAdapter = FrameworkAdapter(viewData)
     var v: VI? = null
 
     var subsDisposable = CompositeDisposable()
@@ -86,7 +86,7 @@ abstract class BasePresenter<VI:BaseView,  D: ViewDataRepository, RO: BaseRouter
     }
 
     fun subscribeWidget(o: Observable<Any>?, function: KFunction0<Unit>, autoUnsubscribe: Boolean = false) {
-
+        LogUtil.d("qwqw", "Function name: " + function.name)
         if (o != null && !subsDisposableMap.containsKey(function.name)) {
             val disposable = o.subscribe({
                 if (autoUnsubscribe) unsubscribeWidget(function)

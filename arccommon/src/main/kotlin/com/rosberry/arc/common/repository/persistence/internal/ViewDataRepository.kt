@@ -22,4 +22,7 @@ abstract class ViewDataRepository constructor(context: Context,
     fun restoreInstanceState(bundle: Bundle?) {
         StateSaver.restoreInstanceState(this, bundle)
     }
+
+     fun getRepository() = this
+
 }

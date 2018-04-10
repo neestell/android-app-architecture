@@ -5,6 +5,7 @@ import com.rosberry.arc.common.presentation.ui.base.model.DialogModel
 import com.rosberry.arc.common.presentation.ui.base.mvp.BasePresenter
 import com.rosberry.arc.common.sample.R
 import com.rosberry.arc.common.injection.scope.PerActivity
+import com.rosberry.arc.common.presentation.ui.base.mvp.BaseView
 import com.rosberry.arc.common.sample.presentation.ui.submain.SubmainView
 import javax.inject.Inject
 
@@ -18,6 +19,7 @@ class MainActivityPresenter
                     val mainInteractor: MainInteractor, //Interactors add to end of the injection
                     val pleasureInteractor: PleasureInteractor
 ) : BasePresenter<MainView, MainViewData, MainRouter>(viewData, mainRouter), MainPresenter, BasePresenter.Host {
+
 
     /*--Start interaction methods. Named starting from physical actionsaction(click, press, selected etc)--*/
 

@@ -3,6 +3,7 @@ package com.rosberry.arc.common.sample.presentation.ui.submain
 import android.content.Context
 import com.rosberry.arc.common.repository.persistence.internal.ViewDataRepository
 import com.rosberry.arc.common.repository.persistence.prefs.InternalStorage
+import com.rosberry.arc.common.sample.presentation.ui.debug.DebugInteractor
 import javax.inject.Inject
 
 /**
@@ -10,6 +11,6 @@ import javax.inject.Inject
  */
 
 class SubmainViewData
-@Inject constructor(context: Context, storage: InternalStorage) : ViewDataRepository(context, storage) {
+@Inject constructor(context: Context, storage: InternalStorage) : ViewDataRepository(context, storage), SubmainInteractor.SubmainDataProvider, DebugInteractor.DebugDataProvider {
 
 }

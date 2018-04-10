@@ -7,6 +7,6 @@ import com.rosberry.arc.common.repository.persistence.internal.ViewDataRepositor
  */
 
 interface IBasePresenter<D: ViewDataRepository>{
-    fun getFrameworkAdapter():FrameworkAdapter<D>
+    fun getFrameworkAdapter():FrameworkAdapter
     fun getView(): BaseView?
 }

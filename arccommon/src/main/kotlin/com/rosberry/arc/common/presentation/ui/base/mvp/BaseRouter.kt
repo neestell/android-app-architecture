@@ -16,10 +16,10 @@ import com.rosberry.arc.common.repository.persistence.internal.ViewDataRepositor
  * Created by Evgeniy Nagibin on 22/05/2017.
  */
 
-/*@PerActivity */abstract class BaseRouter
+abstract class BaseRouter
 constructor() {
 
-    lateinit var androidAdapter: FrameworkAdapter<ViewDataRepository>
+    lateinit var androidAdapter: FrameworkAdapter
 
 
 
@@ -32,7 +32,7 @@ constructor() {
         }
     }
 
-    fun  attachAndroidAdapter(androidAdapter: FrameworkAdapter<ViewDataRepository>) {
+    fun  attachAndroidAdapter(androidAdapter: FrameworkAdapter) {
         this.androidAdapter = androidAdapter
     }
 

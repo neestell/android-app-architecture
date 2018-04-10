@@ -12,7 +12,10 @@ import javax.inject.Inject
  */
 
 class MainViewData
-@Inject constructor(context: Context, storage: InternalStorage) : ViewDataRepository(context, storage) {
+@Inject constructor(context: Context, storage: InternalStorage) : ViewDataRepository(context, storage), MainInteractor.CameraDataProvider, PleasureInteractor.PleasureDataProvider {
 
-    @State var cached = "Value"
+    @State
+    var cached = true
+
+    override fun isCached() = cached
 }
