@@ -11,7 +11,7 @@ import kotlin.reflect.KFunction0
 /**
  * Created by neestell on 9/28/16.
  */
-abstract class BasePresenter<VI:BaseView,  D: ViewDataRepository, RO: BaseRouter>(val viewData: D, val router: RO)  {
+abstract class BasePresenter<VI : BaseView, D : ViewDataRepository, RO : BaseRouter>(val viewData: D, val router: RO) {
     private val childPresenters = HashMap<String, BasePresenter<*, *, *>>()
     val androidAdapter: FrameworkAdapter = FrameworkAdapter(viewData)
     var v: VI? = null
@@ -22,7 +22,7 @@ abstract class BasePresenter<VI:BaseView,  D: ViewDataRepository, RO: BaseRouter
 
     fun getFrameworkAdapter() = androidAdapter
 
-    open fun onCreate(view: VI){
+    open fun onCreate(view: VI) {
         this.v = view
         router.attachAndroidAdapter(androidAdapter);
     }
@@ -76,7 +76,7 @@ abstract class BasePresenter<VI:BaseView,  D: ViewDataRepository, RO: BaseRouter
         return childPresenters.size
     }
 
-    fun unsubscribeWidget(function: KFunction0<Unit>) {
+    fun unsubscribe(function: KFunction0<Unit>) {
 
         val disposable = subsDisposableMap.get(function.name)
         if (disposable != null) {
@@ -89,13 +89,36 @@ abstract class BasePresenter<VI:BaseView,  D: ViewDataRepository, RO: BaseRouter
         LogUtil.d("qwqw", "Function name: " + function.name)
         if (o != null && !subsDisposableMap.containsKey(function.name)) {
             val disposable = o.subscribe({
-                if (autoUnsubscribe) unsubscribeWidget(function)
+                if (autoUnsubscribe) unsubscribe(function)
                 function.invoke()
             })
             if (subsDisposable.add(disposable)) subsDisposableMap.put(function.name, disposable)
         }
     }
 
+    fun subscribe(d: Disposable, function: KFunction0<Unit>) {
+        LogUtil.d("qwqw", "Function name: " + function.name)
+        if (!subsDisposableMap.containsKey(function.name)) {
+            if (subsDisposable.add(d)) subsDisposableMap.put(function.name, d)
+        }
+    }
+
+    fun checkSubscribtion(func: KFunction0<Unit>): Subscribtion? {
+        if (subsDisposableMap[func.name]?.isDisposed == true) unsubscribe(func)
+
+        if (!subsDisposableMap.containsKey(func.name)) {
+            return object : Subscribtion {
+                override fun subscribe(d: Disposable) {
+                    subscribe(d, func)
+                }
+            }
+        }
+        return null
+    }
+
+    interface Subscribtion {
+        fun subscribe(d: Disposable)
+    }
 
     interface Host {
 

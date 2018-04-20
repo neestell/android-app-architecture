@@ -9,6 +9,9 @@ import com.rosberry.arc.common.presentation.ui.base.mvp.InteractorDataReceiver
 import com.rosberry.arc.common.presentation.ui.base.mvp.InteractorDataProvider
 import com.rosberry.arc.common.sample.repository.jni.JNIAdapter
 import com.rosberry.arc.common.sample.usecase.auth.AuthUseCase
+import io.reactivex.Observable
+import io.reactivex.disposables.Disposable
+import io.reactivex.functions.Action
 import javax.inject.Inject
 
 /**
@@ -29,6 +32,8 @@ class MainInteractor
         fun onMainViewCreated(msg: String)
         fun changeCenterText(msg: String)
         fun onShotTaken()
+        fun onAuthorized()
+        fun setLoading(b: Boolean)
     }
 
     override fun onCreate(presenter: CameraDataReceiver, data: CameraDataProvider) {
@@ -65,6 +70,15 @@ class MainInteractor
 
     fun fakeShot() {
         handler.postDelayed({ presenter.onShotTaken() }, 5000)
+    }
+
+    fun auth(): Disposable {
+        presenter.setLoading(true)
+        return authUseCase.login("", "").doOnDispose(object : Action{
+            override fun run() {
+                presenter.setLoading(false)
+            }
+        }).subscribe({presenter.onAuthorized()},{presenter.message("Oooops")})
     }
 
 

@@ -1,11 +1,9 @@
 package com.rosberry.arc.common.sample.presentation.ui.main
 
-import android.os.Handler
 import com.rosberry.arc.common.presentation.ui.base.model.DialogModel
 import com.rosberry.arc.common.presentation.ui.base.mvp.BasePresenter
 import com.rosberry.arc.common.sample.R
 import com.rosberry.arc.common.injection.scope.PerActivity
-import com.rosberry.arc.common.presentation.ui.base.mvp.BaseView
 import com.rosberry.arc.common.sample.presentation.ui.submain.SubmainView
 import javax.inject.Inject
 
@@ -47,6 +45,11 @@ class MainActivityPresenter
 
     }
 
+    fun clickLoadStuff() {
+        checkSubscribtion(::clickLoadStuff)?.subscribe(mainInteractor.auth())
+    }
+
+
     fun clickTakeShot() {
         message(DialogModel.Builder()
                 .contentId(R.string.taking_shot)
@@ -55,7 +58,7 @@ class MainActivityPresenter
 
     }
 
-    fun clickDebug(){
+    fun clickDebug() {
         router.showDebug()
     }
 
@@ -86,6 +89,10 @@ class MainActivityPresenter
 
     override fun onMainViewCreated(str: String) {
         router.showTemporary(str);
+    }
+
+    override fun onAuthorized() {
+
     }
 
     override fun onShotTaken() {
@@ -123,6 +130,8 @@ class MainActivityPresenter
         router.toastNavigator.show(it)
     }
     /*--End methods to show dialog, toasts, activities --*/
+    override fun setLoading(b: Boolean) {
 
+    }
 
 }
