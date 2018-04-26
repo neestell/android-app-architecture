@@ -46,7 +46,7 @@ class MainActivityPresenter
     }
 
     fun clickLoadStuff() {
-        checkSubscribtion(::clickLoadStuff)?.subscribe(mainInteractor.auth())
+        checkSubscribtion(::clickLoadStuff)?.add(mainInteractor.auth())
     }
 
 

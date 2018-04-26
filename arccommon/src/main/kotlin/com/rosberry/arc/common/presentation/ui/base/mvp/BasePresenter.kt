@@ -108,7 +108,7 @@ abstract class BasePresenter<VI : BaseView, D : ViewDataRepository, RO : BaseRou
 
         if (!subsDisposableMap.containsKey(func.name)) {
             return object : Subscribtion {
-                override fun subscribe(d: Disposable) {
+                override fun add(d: Disposable) {
                     subscribe(d, func)
                 }
             }
@@ -117,7 +117,7 @@ abstract class BasePresenter<VI : BaseView, D : ViewDataRepository, RO : BaseRou
     }
 
     interface Subscribtion {
-        fun subscribe(d: Disposable)
+        fun add(d: Disposable)
     }
 
     interface Host {

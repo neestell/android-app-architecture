@@ -9,4 +9,10 @@
     <string name="help_yoursel">Help yourself</string>
     <string name="taking_shot">Please wait. taking a shot...</string>
     <string name="shot_has_been_taken">Shot has been taken</string>
+    <string name="something_went_wrong">Something went wrong</string>
+    <string name="our_engineers_fix_it">Our engineers fix it</string>
+    <string name="try_again">Try again</string>
+    <string name="check_network">Check internet connection</string>
+    <string name="unknown_error">Unknown error</string>
+    <string name="in_development">In development</string>
 </resources>

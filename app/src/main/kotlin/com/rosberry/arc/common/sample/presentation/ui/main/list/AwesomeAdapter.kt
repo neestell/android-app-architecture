@@ -12,9 +12,8 @@ import com.rosberry.arc.common.sample.R
 class AwesomeAdapter : BaseAdapter<AwesomeViewHolder, AwesomeModel, AwesomeAdapter.OnItemClickListener>() {
 
     interface OnItemClickListener {
-        fun onItemClicked(item: AwesomeModel, sharedView: View, position: Int)
-        fun onItemLongClicked(item: AwesomeModel, sharedView: View, position: Int)
-
+        fun onAwesomeClicked(item: AwesomeModel, sharedView: View, position: Int)
+        fun onAwesomeLongClicked(item: AwesomeModel, sharedView: View, position: Int)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): AwesomeViewHolder {
@@ -24,9 +23,9 @@ class AwesomeAdapter : BaseAdapter<AwesomeViewHolder, AwesomeModel, AwesomeAdapt
     override fun onBindViewHolder(holder: AwesomeViewHolder?, position: Int) {
         val item = getItem(position)
         holder?.bind(item)
-        holder?.itemView?.setOnClickListener({ itemClickListener?.onItemClicked(item, holder.itemView, position) })
+        holder?.itemView?.setOnClickListener({ itemClickListener?.onAwesomeClicked(item, holder.itemView, position) })
         holder?.itemView?.setOnLongClickListener {
-            itemClickListener?.onItemLongClicked(item, holder.itemView, position)
+            itemClickListener?.onAwesomeLongClicked(item, holder.itemView, position)
             true
         }
 

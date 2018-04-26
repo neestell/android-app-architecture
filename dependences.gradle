@@ -13,7 +13,7 @@ ext {
 
     constraint_version = "1.0.2"
 
-    anko_version = "0.10.1"
+    anko_version = "0.10.4"
 
     okhttp3downloader_version = "1.1.0"
     okHttp_version = "3.6.0"
@@ -99,7 +99,7 @@ ext {
             firebaseUi              : "com.firebaseui:firebase-ui-storage:$firebaseUi_version",
 
             //kotlin libs
-            kotlin                  : "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version",
+            kotlin                  : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
             ankoCommons             : "org.jetbrains.anko:anko-commons:$anko_version",
             ankoCoroutines          : "org.jetbrains.anko:anko-coroutines:$anko_version",
 
