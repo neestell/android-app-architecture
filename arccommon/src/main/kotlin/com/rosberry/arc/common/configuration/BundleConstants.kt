@@ -6,4 +6,5 @@ package com.rosberry.arc.common.configuration
 
 object BundleConstants {
     const val UID = "APP_TOKEN"
+    const val PRESENTER_ID = "PRESENTER_ID"
 }

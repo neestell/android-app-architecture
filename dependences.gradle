@@ -69,6 +69,7 @@ ext {
     ln_version = "1.1.1"
 
     rxBinding_version = "2.1.1"
+    softKeyboardHelper_version = "2.1.0"
 
     testDependencies = [
             jUnit      : "junit:junit:$junit_version",
@@ -155,6 +156,7 @@ ext {
             gifView                 : "pl.droidsonroids.gif:android-gif-drawable:$gifView_version",
             pixelate                : "nl.dionsegijn:pixelate:$pixelate_version",
             gpuImage                : "jp.co.cyberagent.android.gpuimage:gpuimage-library:$gpuImage_version",
+            softKeyboardHelper      : "net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:$softKeyboardHelper_version",
 
             //media
             mediaPicker             : "com.github.neestell:mediapicker:$mediaPicker_version",

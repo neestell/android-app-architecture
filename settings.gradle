@@ -1,1 +1,1 @@
-include ':app', ':arccommon'
+include ':app', ':arccommon', ':testlib'
